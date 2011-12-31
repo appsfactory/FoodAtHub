@@ -1,4 +1,6 @@
 FoodAtHub::Application.routes.draw do
+  resources :foods
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

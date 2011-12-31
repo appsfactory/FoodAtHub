@@ -12,7 +12,7 @@ Because this is going to be hosted on Heroku and I'm too lazy to break it into m
 ## Setup
 Requires Postgres 8.3 be installed.
 
-Create a role 'hubfood' and a new database 'hubfood' with said user as the owner.
+Create a role 'hubfood', should have admin-level (esp createdb) privileges.
 
 ## Thoughts
 Rambling about what I want to have happen.

@@ -9,6 +9,11 @@ This is a test project for the Communitech Apps Factory. It features a database,
 
 Because this is going to be hosted on Heroku and I'm too lazy to break it into multiple repositories, everything that isn't part of the rails project is in the Other directory.
 
+## Setup
+Requires Postgres 8.3 be installed.
+
+Create a role 'hubfood' and a new database 'hubfood' with said user as the owner.
+
 ## Thoughts
 Rambling about what I want to have happen.
 

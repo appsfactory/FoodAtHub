@@ -14,19 +14,16 @@ Requires Postgres 8.3 be installed.
 
 Create a role 'hubfood', should have admin-level (esp createdb) privileges.
 
-## Thoughts
-Rambling about what I want to have happen.
+## Specifications 
+These are pretty lightweight.
 
-I want the site to be updated when there is food available. I want it 
-available through mobile devices and a website, but otherwise pretty
-simple stuff.
+This site has a web component (via Rails) and a mobile client (via PhoneGap). The Rails project will serve normal web pages but also expose functionality to be used by the mobile client via Ajax.
 
-The question is how the behaviour should work. AT some point or another the site receives
-notification that food exists (implying the default state is No, which makes sense) 
+The default state of the site is NO, because most of the time there is no food.
 
-So, someone sends a YES. The obvious thing is to switch the state to true, there's
-not so many people who would game the system (probably) that would require many many 
-people to send a yes. So, one yes does the trick for now.
+There are two forms of interaction available, a button to indicate that there is food, or one to indicate there is not food.
+
+So, someone sends a YES, through the web or mobile client. Until it is proven otherwise (e.g. if people start gaming the system for some reason I can't predict) we can add more complexity but otherwise any single indication changes the state of the site.
 
 There's probably some sort of half-life on food, so if the yes state is older than 10 
 minutes, it is probably state and old than 20 with no additional YESes, it is definitely old.
@@ -37,5 +34,3 @@ and the number of yeses sets the intensity.
 If no yeses in that time frame, get the last known yes for the "no food for x hours" message. 
 
 Or should that be inverted? Last one, check it, if yes get more? That seems to be the lesser intense action
-
-

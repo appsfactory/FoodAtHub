@@ -1,12 +1,17 @@
 class HomeController < ApplicationController
   def index
-    #placeholder, for now
-  	@items = { @yes => true, @test => "something" }
-		
-		respond_to do |format|
-			format.html # index.html.erb
-			format.json { render :json => @items, :callback => params[:callback] }
-		end
+   @food = Food.last
+      if @food.yes == true
+        @content = { "status" => "YES"}
+      else
+        @content = { "status" => "NO" }
+      end
+	respond_to do |format|
+		format.html # index.html.erb
+		format.json { render :json => @food, :callback => params[:callback] }
+	end
   end
-
 end
+ 
+
+

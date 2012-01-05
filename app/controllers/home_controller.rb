@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   def index
    @food = Food.last
- #if Food.checkTimeExpiry?
- #		 @food.yes = true
- #		else
- #		 @food.yes = false
- # end
+ 	if Food.checkTimeExpiry?
+ 		 @food.yes = true
+ 		else
+ 		 @food.yes = false
+ 	end
 
       if @food.yes == true
         @content = { 

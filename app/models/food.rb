@@ -1,5 +1,9 @@
 class Food < ActiveRecord::Base
 
+	def self.lastYes
+		self.where(:yes => true).last
+	end
+
 	def self.checkTimeExpiry?
 		@food = Food.last
 		

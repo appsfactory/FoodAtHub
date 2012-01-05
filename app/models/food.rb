@@ -5,7 +5,7 @@ class Food < ActiveRecord::Base
 	end
 
 	def self.checkTimeExpiry?
-		@food = Food.last
+		@food = Food.lastYes
 		
 		if (@food.updated_at >= 10.seconds.ago)
 			@food.yes = true

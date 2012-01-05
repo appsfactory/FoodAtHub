@@ -13,3 +13,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore BlackBerry build files.
+/Other/PhoneGap/BlackBerry/www/build/

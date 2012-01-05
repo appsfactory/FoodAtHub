@@ -30,8 +30,14 @@ var App = new Ext.Application({
 						id : 'firstButton',
 						text : firstButtonString,
 						scale : 'small',
-						width : 80,
-						height : 70
+						width : 200,
+						height : 40,
+						stretch : false,
+						ui : 'confirm-round',
+						handler : function() {
+								//Have this button send it's appropriate response to the server. For now, it goes beep.
+								this.setText('Beep!');
+						}
 				});
 				
 				//The second button to display
@@ -39,10 +45,21 @@ var App = new Ext.Application({
 						id : 'secondButton',
 						text : secondButtonString,
 						scale : 'small',
-						width : 80,
-						height : 70
+						width : 200,
+						height : 40,
+						ui : 'decline-round',	
+						stretch : false,
+						handler : function() {
+								//Have this button send it's appropriate response to the server. For now, it goes beep.
+								this.setText('Beep!');
+						}
 				});
-		
+				
+				var buttons = [FoodAtTheHub.views.firstButton, 
+											{xtype: 'spacer',
+											 height: 20								
+											}, FoodAtTheHub.views.secondButton];
+				
 				//A buffer to keep things in line. I'm pretty sure there's an easier way, so this is probably just temporary
 				FoodAtTheHub.views.buffer = new Ext.Panel({
 						id : 'buffer',
@@ -53,8 +70,9 @@ var App = new Ext.Application({
 				FoodAtTheHub.views.buttonContainer = new Ext.Panel({
 						id : 'buttonContainer',						
 						width : 200,
+						layout: {type: 'hbox', pack: 'center', align: 'stretch'},
 						height : 300,
-						dockedItems : [FoodAtTheHub.views.firstButton, FoodAtTheHub.views.buffer, FoodAtTheHub.views.secondButton]
+						items: [{items: buttons}]
 				});
 
 				//The first text container, contains only the yes/no answer

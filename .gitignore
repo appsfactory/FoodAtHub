@@ -16,3 +16,6 @@
 
 # Ignore BlackBerry build files.
 /Other/PhoneGap/BlackBerry/www/build/
+
+# Ignore stupid .DS_Store files.
+.DS_Store

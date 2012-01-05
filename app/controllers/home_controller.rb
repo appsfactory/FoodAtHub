@@ -7,20 +7,27 @@ class HomeController < ApplicationController
  #		 @food.yes = false
  # end
 
-      if @food.yes == true
-        @content = { 
+    if @food.yes == true
+        @content = 
+        { 
         	"status" => "YES", 
         	"words" => "Food was last seen ", "end" => " ago",
-        	# "otherwords" => "Food was last seen " << time_ago_in_words(@food.updated_at) << " ago"
         }
-      else
-        @content = { "status" => "NO", "words" => "Food has not been seen for ", "end" => "" }
-      end
+    else
+        @content = 
+        {
+        	"status" => "NO",
+        	"words" => "Food has not been seen for ",
+        	"end" => "" 
+        }
+    end
 	respond_to do |format|
 		format.html # index.html.erb
 		format.json { render :json => @food, :callback => params[:callback] }
 	end
+	
   end
+  
 end
  
 

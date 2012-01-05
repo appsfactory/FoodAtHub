@@ -10,8 +10,6 @@ function iWantFood(){
 			alert(yay);
 		},
 		failure: function(nay) {
-			data: [
-				
 			alert('nay');
 			//Ext.MessageBox.alert('failed, but works!');
 		}

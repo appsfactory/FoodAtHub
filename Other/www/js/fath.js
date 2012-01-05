@@ -3,14 +3,17 @@
 function iWantFood(){
 	
 	Ext.Ajax.request({
-		url: 'http://localhost:3000/food',
+		url: 'http://localhost:3000/food.json',
 		timeout: 3000,
 		method: 'GET',
 		success: function(yay) {
 			alert(yay);
-		}
-		error: function(nay) {
-			alert('fail, but works!');
+		},
+		failure: function(nay) {
+			data: [
+				
+			alert('nay');
+			//Ext.MessageBox.alert('failed, but works!');
 		}
 	});
 }

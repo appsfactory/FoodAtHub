@@ -1,6 +1,8 @@
 
 
 <%= @content["status"] %>
-</br>
+<p>
+<%= @content["words"] %> <%= time_ago_in_words(@food.updated_at) %> <%= @content["end"] %>
+</p>
 
 <%= link_to "My Food", foods_path %>

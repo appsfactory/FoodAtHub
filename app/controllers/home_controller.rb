@@ -1,10 +1,20 @@
 class HomeController < ApplicationController
   def index
    @food = Food.last
+ #if Food.checkTimeExpiry?
+ #		 @food.yes = true
+ #		else
+ #		 @food.yes = false
+ # end
+
       if @food.yes == true
-        @content = { "status" => "YES"}
+        @content = { 
+        	"status" => "YES", 
+        	"words" => "Food was last seen ", "end" => " ago",
+        	# "otherwords" => "Food was last seen " << time_ago_in_words(@food.updated_at) << " ago"
+        }
       else
-        @content = { "status" => "NO" }
+        @content = { "status" => "NO", "words" => "Food has not been seen for ", "end" => "" }
       end
 	respond_to do |format|
 		format.html # index.html.erb

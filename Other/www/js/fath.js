@@ -4,8 +4,8 @@ var message = '';
 function iWantFood() {
 	Ext.util.JSONP.request({
 		url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
-		timeout: 3000,
-		method: 'GET',
+		format: 'json',
+		callbackKey: 'callback',
 		callback: function(results) {
 			if(results.yes)
 			{

@@ -133,6 +133,7 @@ var App = new Ext.Application({
 						id : 'foodContainer',	
 						height: 480,
 						width : 320,
+						stretch: false,
 						dockedItems : [FoodAtTheHub.views.foodToolbar, FoodAtTheHub.views.textContainer, FoodAtTheHub.views.buffer, FoodAtTheHub.views.textContainer2,FoodAtTheHub.views.buffer,  FoodAtTheHub.views.buttonContainer]
 				});
 				

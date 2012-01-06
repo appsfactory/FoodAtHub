@@ -14,6 +14,11 @@ class Food < ActiveRecord::Base
 		end
 	end
 	
+	def self.checkMostRecent?
+		@food = Food.last
+		@food.yes ? true : false
+	end
+	
 end
  
 

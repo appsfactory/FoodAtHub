@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
 
-   @food = Food.lastYes
-    if Food.checkTimeExpiry?
+   @food = Food.last
+    if Food.checkMostRecent? and Food.checkTimeExpiry?
         @content = 
         { 
         	"status" => "YES", 

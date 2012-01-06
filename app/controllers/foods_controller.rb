@@ -86,8 +86,8 @@ class FoodsController < ApplicationController
    @food.yes = true
    @food.save
    respond_to do |format|
-   	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
-   	format.json {head :ok }
+   #	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
+   #	format.json {render :json, :callback => params[:callback] }
    end
  end
    
@@ -97,7 +97,7 @@ class FoodsController < ApplicationController
    @food.save
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
-   	format.json {head :ok }
+   	format.json {render :json, :callback => params[:callback] }
    end
  end
 end

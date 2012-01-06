@@ -94,10 +94,10 @@ class FoodsController < ApplicationController
   def foodNo
    @food = Food.new
    @food.yes = false
-   @food.save
+   saved = @food.save
    respond_to do |format|
-   	#format.html { redirect_to root_url, notice: 'Button press was recognized.' }
-   	format.json {render :json => {}, :callback => params[:callback] }
+   	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
+   	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
    end
  end
 end

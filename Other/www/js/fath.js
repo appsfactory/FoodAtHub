@@ -7,6 +7,60 @@ function iWantFood() {
 		format: 'json',
 		callbackKey: 'callback',
 		callback: function(results) {
+			if(results.status)
+			{
+				stat = 'Yes!';
+				message = 'Food last seen ' + results.time + ' ago';
+			}
+			else
+			{
+				stat = 'No :(';
+				message = 'No food as of ' + results.time;
+			}
+		},
+		failure: function(nay) {
+			alert('Ooops! Something went wrong! :S');
+			stat = 'Dunno!';
+			message = 'You probably dont have an internet connection, or I messed up!';
+			//Ext.MessageBox.alert('failed, but works!');
+		}
+	});
+};
+
+
+function iSawFood(saw) {
+	var url;
+	
+	if(saw == 'yes')
+	{
+		url = 'http://falling-earth-1135.herokuapp.com/foods/foodYes';
+	}
+	else
+	{
+		url = 'http://falling-earth-1135.herokuapp.com/foods/foodNo';
+	}
+	
+	Ext.Ajax.request({
+		url: url,
+		method: 'POST',
+		success: function(results) {
+			alert('Updated');
+		},
+		failure: function(nay) {
+			alert('Failure');
+			//Ext.MessageBox.alert('failed, but works!');
+		}
+	});
+};
+
+/*
+function iSawFood(saw) {
+	var myURL = 'http://falling-earth-1135.herokuapp.com/foods/food' + saw;
+	Ext.util.JSONP.request({
+		url: myURL,
+		format: 'json',
+		callbackKey: 'callback',
+		callback: function(results) {
 			if(results.yes)
 			{
 				stat = 'Yes!';
@@ -26,6 +80,7 @@ function iWantFood() {
 		}
 	});
 };
+*/
 
 iWantFood();
 
@@ -68,7 +123,7 @@ var App = new Ext.Application({
 						ui : 'confirm-round',
 						handler : function() {
 								//Ajax Request.
-								iWantFood();
+								iSawFood('Yes');
 								FoodAtTheHub.views.textContainer.update('<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>');
 								FoodAtTheHub.views.textContainer2.update('<DIV align="center"><p>' + message + '</p></DIV>');
 						}
@@ -85,7 +140,7 @@ var App = new Ext.Application({
 						stretch : false,
 						handler : function() {
 								//Ajax Request.
-								iWantFood();
+								iSawFood('No');
 								FoodAtTheHub.views.textContainer.update('<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>');
 								FoodAtTheHub.views.textContainer2.update('<DIV align="center"><p>' + message + '</p></DIV>');
 						}

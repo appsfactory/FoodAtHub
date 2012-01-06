@@ -1,3 +1,5 @@
+include ActionView::Helpers::DateHelper
+
 class HomeController < ApplicationController
   def index
 
@@ -6,19 +8,18 @@ class HomeController < ApplicationController
         @content = 
         { 
         	"status" => "YES", 
-        	"words" => "Food was last seen ", "end" => " ago",
+        	"time" => "Food was last seen " + time_ago_in_words(@food.updated_at) + " ago"
         }
     else
         @content = 
         {
         	"status" => "NO",
-        	"words" => "Food has not been seen for ",
-        	"end" => "" 
+        	"time" => "Food has not been seen for " + time_ago_in_words(@food.updated_at)
         }
     end
 	respond_to do |format|
 		format.html # index.html.erb
-		format.json { render :json => @food, :callback => params[:callback] }
+		format.json { render :json => @content, :callback => params[:callback] }
 	end
 	
   end

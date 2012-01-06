@@ -1,9 +1,10 @@
-var stat = '';
-var message = '';
+var stat = '',
+    message = '',
+    baseurl = 'http://falling-earth-1135.herokuapp.com';
 
 function iWantFood() {
 	Ext.util.JSONP.request({
-		url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
+		url: '/home/index.json',
 		format: 'json',
 		callbackKey: 'callback',
 		callback: function(results) {
@@ -33,11 +34,11 @@ function iSawFood(saw) {
 	
 	if(saw == 'yes')
 	{
-		url = 'http://falling-earth-1135.herokuapp.com/foods/foodYes';
+		url = '/foods/foodYes';
 	}
 	else
 	{
-		url = 'http://falling-earth-1135.herokuapp.com/foods/foodNo';
+		url = '/foods/foodNo';
 	}
 	
 	Ext.Ajax.request({

@@ -10,12 +10,12 @@ function iWantFood() {
 			if(results.status)
 			{
 				stat = 'Yes!';
-				message = 'Food last seen ' + results.time + ' ago';
+				message = results.time;
 			}
 			else
 			{
 				stat = 'No :(';
-				message = 'No food as of ' + results.time;
+				message = results.time;
 			}
 		},
 		failure: function(nay) {

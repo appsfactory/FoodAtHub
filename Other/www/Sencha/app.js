@@ -15,7 +15,7 @@ var App = new Ext.Application({
 				var firstButtonString = "I'm a button!";
 				var secondButtonString = "I'm a button, too!";
 				var foodToolBarString = 'FoodAtTheHub.com';
-				
+
 				//The toolbar at the top of the screen, mostly decorative.
 				FoodAtTheHub.views.foodToolbar = new Ext.Toolbar({
 						id: 'foodToolbar',
@@ -96,6 +96,7 @@ var App = new Ext.Application({
 						id : 'foodContainer',	
 						height: 480,
 						width : 320,
+						stretch : false,
 						dockedItems : [FoodAtTheHub.views.foodToolbar, FoodAtTheHub.views.textContainer, FoodAtTheHub.views.buffer, FoodAtTheHub.views.textContainer2,FoodAtTheHub.views.buffer,  FoodAtTheHub.views.buttonContainer]
 				});
 				

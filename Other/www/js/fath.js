@@ -1,14 +1,14 @@
-var stat = '',
-    message = '',
-    baseurl = 'http://falling-earth-1135.herokuapp.com';
+var stat = 'NO';
+var message = '';
 
+//Pulls the stats in
 function iWantFood() {
 	Ext.util.JSONP.request({
-		url: '/home/index.json',
+		url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
 		format: 'json',
 		callbackKey: 'callback',
 		callback: function(results) {
-			if(results.status)
+			if(results.status == 'YES')
 			{
 				stat = 'Yes!';
 				message = results.time;
@@ -17,6 +17,23 @@ function iWantFood() {
 			{
 				stat = 'No :(';
 				message = results.time;
+			}
+			if (FoodAtTheHub.views.textContainer)
+			{
+				FoodAtTheHub.views.textContainer.update('<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>');
+				FoodAtTheHub.views.textContainer2.update('<DIV align="center"><p>' + message + '</p></DIV>');
+				if (stat == 'Yes!')
+				{
+						firstButtonString = "There's still food!";
+						secondButtonString = "Awe, it's gone...";
+				}
+				else
+				{
+						firstButtonString = "There's food now!";
+						secondButtonString = "Still no food...";
+				}
+				FoodAtTheHub.views.firstButton.setText(firstButtonString);
+				FoodAtTheHub.views.secondButton.setText(secondButtonString);
 			}
 		},
 		failure: function(nay) {
@@ -28,81 +45,40 @@ function iWantFood() {
 	});
 };
 
-
+//Changes the server stats
 function iSawFood(saw) {
-	var url;
-	
-	if(saw == 'yes')
-	{
-		url = '/foods/foodYes';
-	}
-	else
-	{
-		url = '/foods/foodNo';
-	}
-	
-	Ext.Ajax.request({
-		url: url,
-		method: 'POST',
-		success: function(results) {
-			alert('Updated');
-		},
-		failure: function(nay) {
-			alert('Failure');
-			//Ext.MessageBox.alert('failed, but works!');
-		}
-	});
-};
-
-/*
-function iSawFood(saw) {
-	var myURL = 'http://falling-earth-1135.herokuapp.com/foods/food' + saw;
+	var myURL = 'http://falling-earth-1135.herokuapp.com/foods/food' + saw + '/hack.json';
 	Ext.util.JSONP.request({
 		url: myURL,
 		format: 'json',
+		method : 'POST',
 		callbackKey: 'callback',
 		callback: function(results) {
-			if(results.yes)
-			{
-				stat = 'Yes!';
-				message = 'Food last seen at ' + results.updated_at;
-			}
-			else
-			{
-				stat = 'No :(';
-				message = 'No food as of ' + results.updated_at;
-			}
+			iWantFood();
 		},
 		failure: function(nay) {
-			alert('Ooops! Something went wrong! :S');
-			stat = 'Dunno!';
-			message = 'You probably dont have an internet connection, or I messed up!';
-			//Ext.MessageBox.alert('failed, but works!');
 		}
 	});
 };
-*/
 
 iWantFood();
 
-/*The app as of Jan. 5.
-TODO:
-Fix the layout (Mostly bugs with the width
-Have all the initial variables fetch their data from the server
-Give buttons the proper functionality
-Decide whether to remove most containers, or keep them as is.
-*/
+//The App. Everything above is Global.
 var App = new Ext.Application({
     name : 'FoodAtTheHub',
     useLoadMask : true,
     launch : function launch() {		
     
 				//These are the initial variables that will hold the data to display on the webpage. Currently static, they should soon be updated to change to the appropriate setting when the page loads
-				var firstButtonString = "Yes!";
-				var secondButtonString = "All Gone :(";
+				var firstButtonString = "There's food now!";
+				var secondButtonString = "Still no food...";
 				var foodToolBarString = 'FoodAtTheHub.com';
 				
-				
+				if (stat == 'Yes!')
+				{
+						firstButtonString = "There's still food!";
+						secondButtonString = "Awe, it's gone...";
+				}
 				
 				//The toolbar at the top of the screen, mostly decorative.
 				FoodAtTheHub.views.foodToolbar = new Ext.Toolbar({
@@ -110,14 +86,12 @@ var App = new Ext.Application({
 						title: foodToolBarString,
 						height : 46,
 						width : 320,
-						maxWidth : 320
 				});
 
 				//The first button to display
 				FoodAtTheHub.views.firstButton = new Ext.Button({
 						id : 'firstButton',
 						text : firstButtonString,
-						scale : 'small',
 						width : 200,
 						height : 40,
 						stretch : false,
@@ -125,8 +99,6 @@ var App = new Ext.Application({
 						handler : function() {
 								//Ajax Request.
 								iSawFood('Yes');
-								FoodAtTheHub.views.textContainer.update('<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>');
-								FoodAtTheHub.views.textContainer2.update('<DIV align="center"><p>' + message + '</p></DIV>');
 						}
 				});
 				
@@ -134,7 +106,6 @@ var App = new Ext.Application({
 				FoodAtTheHub.views.secondButton = new Ext.Button({
 						id : 'secondButton',
 						text : secondButtonString,
-						scale : 'small',
 						width : 200,
 						height : 40,
 						ui : 'decline-round',	
@@ -142,8 +113,6 @@ var App = new Ext.Application({
 						handler : function() {
 								//Ajax Request.
 								iSawFood('No');
-								FoodAtTheHub.views.textContainer.update('<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>');
-								FoodAtTheHub.views.textContainer2.update('<DIV align="center"><p>' + message + '</p></DIV>');
 						}
 				});
 				
@@ -171,7 +140,6 @@ var App = new Ext.Application({
 				FoodAtTheHub.views.textContainer = new Ext.Panel({
 						id : 'textContainer',						
 						html : '<DIV align="center"><p style="font-size:500%">' + stat + '</p></DIV>',
-						fullscreen : false,
 						height: 84
 				});
 
@@ -179,7 +147,6 @@ var App = new Ext.Application({
 				FoodAtTheHub.views.textContainer2 = new Ext.Panel({
 						id : 'textContainer2',						
 						html : '<DIV align="center"><p>' + message + '</p></DIV>',
-						fullscreen : false,
 						height : 60
 				});
 

@@ -80,4 +80,24 @@ class FoodsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def foodYes
+   @food = Food.new
+   @food.yes = true
+   @food.save
+   respond_to do |format|
+   	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
+   	format.json {head :ok }
+   end
+ end
+   
+     def foodNo
+   @food = Food.new
+   @food.yes = false
+   @food.save
+   respond_to do |format|
+   	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
+   	format.json {head :ok }
+   end
+ end
 end

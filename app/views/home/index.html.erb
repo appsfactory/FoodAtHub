@@ -8,6 +8,6 @@
 <%= link_to "My Food", foods_path %>
 
 
-<%= button_to "YES",  :controller => 'foods', :action => :foodYes %>
+<%= button_to "YES",  :controller => 'foods', :action => :foodYes, :method => :get %>
 
-<%= button_to "NO",  :controller => 'foods', :action => :foodNo %>
+<%= button_to "NO",  :controller => 'foods', :action => :foodNo, :method => :get %>

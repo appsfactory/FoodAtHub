@@ -2,8 +2,8 @@ FoodAtHub::Application.routes.draw do
   get "home/index"
 
   resources :foods
-   match 'foods/foodyes(/:id)' => 'foods#foodYes'
-   match 'foods/foodno(/:id)' => 'foods#foodNo'
+   match 'foods/foodYes(/:id)' => 'foods#foodYes'
+   match 'foods/foodNo(/:id)' => 'foods#foodNo'
    
   # The priority is based upon order of creation:
   # first created -> highest priority.

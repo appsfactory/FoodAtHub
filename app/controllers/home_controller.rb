@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     end
 	respond_to do |format|
 		format.html # index.html.erb
-		format.json { render :json => @food, :dc => params[:callback] }
+		format.json { render :json => @food, :dc => params[:dc] }
 	end
 	
   end

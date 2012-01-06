@@ -7,4 +7,7 @@
 
 <%= link_to "My Food", foods_path %>
 
-<%=button_to "YES",  new_food_path, :method => :get %>
+
+<%= button_to "YES",  :controller => 'foods', :action => :foodYes %>
+
+<%= button_to "NO",  :controller => 'foods', :action => :foodNo %>

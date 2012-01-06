@@ -91,7 +91,7 @@ class FoodsController < ApplicationController
    end
  end
    
-     def foodNo
+  def foodNo
    @food = Food.new
    @food.yes = false
    @food.save

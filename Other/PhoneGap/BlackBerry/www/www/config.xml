@@ -9,11 +9,13 @@
         xmlns:rim="http://www.blackberry.com/ns/widgets"
 	version="1.0.0.0">
 
-  <name>PhoneGap Sample</name>
+  <name>Food At The Hub?</name>
 
   <description>
-      A sample application written with PhoneGap.
+    Is there food at Communitech Hub? 
   </description>
+
+  <author href = "http://appsfactory.ca">The Communitech Apps Factory</author>
 
   <license href="http://opensource.org/licenses/alphabetical">
   </license>

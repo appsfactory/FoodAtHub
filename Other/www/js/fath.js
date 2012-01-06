@@ -2,11 +2,11 @@ var stat = '';
 var message = '';
 
 function iWantFood() {
-	Ext.Ajax.request({
+	Ext.util.JSONP.request({
 		url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
 		timeout: 3000,
 		method: 'GET',
-		success: function(results) {
+		callback: function(results) {
 			if(results.yes)
 			{
 				stat = 'Yes!';
@@ -17,7 +17,6 @@ function iWantFood() {
 				stat = 'No :(';
 				message = 'No food as of ' + results.updated_at;
 			}
-			
 		},
 		failure: function(nay) {
 			alert('Ooops! Something went wrong! :S');

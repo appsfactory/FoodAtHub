@@ -1,5 +1,7 @@
 var stat = 'NO';
 var message = '';
+var swidth = screen.width;
+var sheight = screen.height;
 
 //Pulls the stats in
 function iWantFood() {
@@ -85,14 +87,14 @@ var App = new Ext.Application({
 						id: 'foodToolbar',
 						title: foodToolBarString,
 						height : 46,
-						width : 320,
+						stretch : true
 				});
 
 				//The first button to display
 				FoodAtTheHub.views.firstButton = new Ext.Button({
 						id : 'firstButton',
 						text : firstButtonString,
-						width : 200,
+						width : swidth * 0.9,
 						height : 40,
 						stretch : false,
 						ui : 'confirm-round',
@@ -106,7 +108,7 @@ var App = new Ext.Application({
 				FoodAtTheHub.views.secondButton = new Ext.Button({
 						id : 'secondButton',
 						text : secondButtonString,
-						width : 200,
+						width : swidth * 0.9,
 						height : 40,
 						ui : 'decline-round',	
 						stretch : false,
@@ -153,9 +155,10 @@ var App = new Ext.Application({
 				//The food container, contains everything with proper buffers to seperate
 				FoodAtTheHub.views.foodContainer = new Ext.Panel({
 						id : 'foodContainer',	
-						height: 480,
-						width : 320,
-						stretch: false,
+						//height: 480,
+						//width : 320,
+						//layout: 'fit',
+						stretch: true,
 						dockedItems : [FoodAtTheHub.views.foodToolbar, FoodAtTheHub.views.textContainer, FoodAtTheHub.views.buffer, FoodAtTheHub.views.textContainer2,FoodAtTheHub.views.buffer,  FoodAtTheHub.views.buttonContainer]
 				});
 				

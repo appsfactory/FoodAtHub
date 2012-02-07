@@ -114,25 +114,23 @@ class FoodsController < ApplicationController
  
  
  def changeAvailability
- 	logger.debug "METHOD: changeAvailability"
- 	#kind = params[:foodID]
- 	#state = params[:state]
+ 	kind = params[:foodID]
+ 	state = params[:state]
  	
- 	#check if state of foodtype is the same as the one being sent in, if so: return, else continue
+ 	#bool = FoodType.checkSameState(kind,state)
+ 	#logger.debug "checkSameState:"+bool.to_s
  	
- 	#if Food.checkMostRecent?
- 		#if there was previously food
+ 	 respond_to do |format|
+ 	  	if FoodType.checkSameState(kind,state)
+ 			format.json { render :json=> {:status=>"unnecessary save"}, :callback=>params[:callback] }
+ 		else	
+ 			FoodType.updateModel(kind,state)
+ 			logger.debug "FoodType status:"+FoodType.status.to_s
  		
- 		#update Food.last row (create separate column for this?)
- 		#
- 	#else
- 		#if there previously was NO food
- 		#update Food.last row
- 		
- 	#end
- 	
- 	respond_to do |format|
- 		format.json { render :json=> {:status=>"successful"}, :callback=>params[:callback] }
+ 			new = FoodType.status
+ 			Food.create(:yes=>new)
+ 			format.json { render :json=> {:status=>"save successful"}, :callback=>params[:callback] }
+ 		end
  	end
  end
  	

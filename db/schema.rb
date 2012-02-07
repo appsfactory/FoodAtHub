@@ -11,22 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206193811) do
+ActiveRecord::Schema.define(:version => 20120207144640) do
+
+  create_table "food_types", :force => true do |t|
+    t.string   "type"
+    t.boolean  "yes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "foods", :force => true do |t|
     t.boolean  "yes"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "cheese"
-    t.boolean  "dessert"
-    t.boolean  "drinks"
-    t.boolean  "fruit"
-    t.boolean  "other"
-    t.boolean  "pizza"
-    t.boolean  "salad"
-    t.boolean  "sandwiches"
-    t.boolean  "veggies"
   end
 
 end

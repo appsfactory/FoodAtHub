@@ -100,4 +100,20 @@ class FoodsController < ApplicationController
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
    end
  end
+ 
+ 
+ ####FOOD TYPES METHODS####
+ def pullFoodTypes
+ 	@foodTypes = FoodType.all
+ 	respond_to do |format|
+ 		format.json { render json: @foodTypes } 
+ 	end
+ end
+ 
+ 
+ def toggleFood
+ 	kind = params[:toggled]
+ 	
+ end
+ 	
 end

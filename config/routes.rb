@@ -2,6 +2,7 @@ FoodAtHub::Application.routes.draw do
   get "home/index"
 
    match 'foods/pullFoodTypes' => 'foods#pullFoodTypes'
+   match 'foods/changeAvailability' => 'foods#changeAvailability'
 
   resources :foods
    match 'foods/foodYes(/:id)' => 'foods#foodYes'

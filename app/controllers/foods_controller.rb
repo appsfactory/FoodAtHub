@@ -84,7 +84,8 @@ class FoodsController < ApplicationController
   def foodYes
    @food = Food.new
    @food.yes = true
-  saved = @food.save
+   saved = @food.save
+   #input logic to deal with changing availability on FoodType
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -95,6 +96,7 @@ class FoodsController < ApplicationController
    @food = Food.new
    @food.yes = false
    saved = @food.save
+	#input logic to set all in FoodType to :yes=>false
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -106,14 +108,32 @@ class FoodsController < ApplicationController
  def pullFoodTypes
  	@foodTypes = FoodType.all
  	respond_to do |format|
- 		format.json { render json: @foodTypes } 
+ 		format.json { render json: @foodTypes, :callback=>params[:callback] } 
  	end
  end
  
  
- def toggleFood
- 	kind = params[:toggled]
+ def changeAvailability
+ 	logger.debug "METHOD: changeAvailability"
+ 	#kind = params[:foodID]
+ 	#state = params[:state]
  	
+ 	#check if state of foodtype is the same as the one being sent in, if so: return, else continue
+ 	
+ 	#if Food.checkMostRecent?
+ 		#if there was previously food
+ 		
+ 		#update Food.last row (create separate column for this?)
+ 		#
+ 	#else
+ 		#if there previously was NO food
+ 		#update Food.last row
+ 		
+ 	#end
+ 	
+ 	respond_to do |format|
+ 		format.json { render :json=> {:status=>"successful"}, :callback=>params[:callback] }
+ 	end
  end
  	
 end

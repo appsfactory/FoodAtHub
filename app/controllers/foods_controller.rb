@@ -104,7 +104,7 @@ class FoodsController < ApplicationController
  end
  
  
- ####FOOD TYPES METHODS####
+ ####PULLS AND UPDATES FOOD AVAILABILITY####
  def pullFoodTypes
  	@foodTypes = FoodType.all
  	respond_to do |format|

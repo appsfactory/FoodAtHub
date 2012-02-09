@@ -26,9 +26,22 @@ function clearAll()
         if(e.style.background == 'rgb(148, 255, 112)')
         {
             e.style.background = '#FF3300';
-            typeOfFood(count+1, false);
         }
     }
+    
+    $.ajax({
+           url: 'http://falling-earth-1135.herokuapp.com/foods/clearFoodAvailability.json?callback=',
+           type: 'GET',
+           async: false,
+           success: function(results)
+           {
+           console.log('State changed!');
+           },
+           error: function(error)
+           {
+           console.log(error);
+           }
+           });
     
     checkForFood();
 }

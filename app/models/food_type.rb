@@ -1,5 +1,6 @@
 class FoodType < ActiveRecord::Base
 	#food uniqueness
+	scope :alphabetical, :order => "content ASC"
 	
 	def self.checkSameState (givenFood, givenState)
 		kind = self.find(givenFood)

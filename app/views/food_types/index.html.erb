@@ -4,7 +4,7 @@
   <tr>
     <th>Content</th>
     <th>Yes</th>
-    <th></th>
+    <th>updated</th>
     <th></th>
     <th></th>
   </tr>
@@ -13,6 +13,7 @@
   <tr>
     <td><%= food_type.content %></td>
     <td><%= food_type.yes %></td>
+    <td><%= food_type.updated_at %></td>
     <td><%= link_to 'Show', food_type %></td>
     <td><%= link_to 'Edit', edit_food_type_path(food_type) %></td>
     <td><%= link_to 'Destroy', food_type, confirm: 'Are you sure?', method: :delete %></td>

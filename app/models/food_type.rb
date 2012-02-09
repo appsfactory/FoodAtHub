@@ -18,5 +18,9 @@ class FoodType < ActiveRecord::Base
 	
 	def self.status
 		self.where(:yes=>true).count > 0
-	end 
+	end
+	
+	def self.clearAvailability
+		self.update_all(:yes=>false)
+	end
 end

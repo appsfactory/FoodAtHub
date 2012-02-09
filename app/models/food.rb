@@ -1,4 +1,5 @@
 class Food < ActiveRecord::Base
+	scope :chronological, :order => "updated_at DESC"
 
 	def self.lastYes
 		self.where(:yes => true).last

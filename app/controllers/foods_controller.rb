@@ -134,5 +134,14 @@ class FoodsController < ApplicationController
  		end
  	end
  end
+ 
+ def clearFoodAvailability
+ 	FoodType.clearAvailability
+ 	Food.create(:yes=>false)
+ 	
+ 	respond_to do |format|
+ 		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 
+ 	end
+ end
  	
 end

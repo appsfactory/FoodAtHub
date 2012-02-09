@@ -3,6 +3,7 @@ FoodAtHub::Application.routes.draw do
 
    match 'foods/pullFoodTypes' => 'foods#pullFoodTypes'
    match 'foods/changeAvailability' => 'foods#changeAvailability'
+   match 'foods/clearFoodAvailability' => 'foods#clearFoodAvailability'
 
   resources :foods
    match 'foods/foodYes(/:id)' => 'foods#foodYes'

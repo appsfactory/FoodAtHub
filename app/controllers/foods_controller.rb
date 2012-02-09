@@ -104,7 +104,7 @@ class FoodsController < ApplicationController
  end
  
  
- ####PULLS AND UPDATES FOOD AVAILABILITY####
+ #### PULLS AND UPDATES FOOD AVAILABILITY ####
  def pullFoodTypes
  	@foodTypes = FoodType.alphabetical
  	
@@ -126,9 +126,13 @@ class FoodsController < ApplicationController
  			format.json { render :json=> {:status=>"unnecessary save"}, :callback=>params[:callback] }
  		else	
  			FoodType.updateModel(kind,state)
+ 			
+ 			@foodType = FoodType.find(kind)
+ 			prefix = state === "true"? "": "no more "
+ 			foodTweet("There is " + prefix + @foodType.content.downcase + " at the Hub")
+
  			logger.debug "FoodType status:"+FoodType.status.to_s
- 		
- 			new = FoodType.status
+ 			new = FoodType.status 			
  			Food.create(:yes=>new)
  			format.json { render :json=> {:status=>"save successful"}, :callback=>params[:callback] }
  		end
@@ -139,9 +143,30 @@ class FoodsController < ApplicationController
  	FoodType.clearAvailability
  	Food.create(:yes=>false)
  	
+ 	logger.debug "Start tweet : clearFoodAvailability"
+ 	foodTweet("There is no more food")
+ 	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 
  	end
+ end
+ 
+ 
+ #### TWITTER ####
+ def foodTweet (tweet)
+ 	require "twitter"
+ 	logger.debug "METHOD: foodTweet"
+ 	
+ 	#FoodAtTheHubDEV#
+ 	Twitter.configure do |config|
+      config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
+      config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
+      config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
+      config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
+    end
+    
+    @twitter = Twitter::Client.new
+	@twitter.update(tweet)
  end
  	
 end

@@ -4,31 +4,46 @@ $(document).ready( function() {
 
 checkForFood();
 getFood();
-                  
-$('#thereIsFood').click( function() {
-    iSawFood('Yes');
-    checkForFood();
-});
 
 $('#itsAllGone').click( function() {
     iSawFood('No');
     checkForFood();
+    clearAll();
 });
 
-$('#itsAllGone').click( toggleColor );
-$('#sandwiches').click( function() {toggleColor('sandwiches')});
-$('#cookies').click( function() {toggleColor('cookies')} );
-$('#deserts').click( toggleColor );
-$('#fruits').click( toggleColor );
-$('#salad').click( toggleColor );
-$('#pizza').click( toggleColor );
-$('#cheese').click( toggleColor );
-$('#veggies').click( toggleColor );
-$('#drinks').click( toggleColor );
-$('#other').click( toggleColor );
 
-                  
 });
+
+
+function clearAll()
+{
+    var count;
+    
+    for(count = 0; count < foods.length; count++)
+    {
+        var e = document.getElementById(count+1);
+        
+        if(e.style.background == 'rgb(148, 255, 112)')
+        {
+            e.style.background = '#FF3300';
+            typeOfFood(count+1, false);
+        }
+    }
+    
+    checkForFood();
+}
+
+function bindBttns(array)
+{
+    var subArray = array;
+    
+    for(var i = 0; i < subArray.length; i++)
+    {
+        var string = '#' + subArray[i].id;
+        var s = string.toString();
+        $(s).bind('click', toggleColor(subArray[i].id));
+    };
+}
 
 
 function getFood()
@@ -53,15 +68,8 @@ function getFood()
            })
 }
 
-function parseFood(foods)
-{
-    var foodArray = foods;
-    
-    
-}
-
 var row;
-var currentObj;
+
 
 function popButtons(buttons)
 {
@@ -86,6 +94,9 @@ function popButtons(buttons)
         bttn.innerHTML = objs[i].content;
         bttn.setAttribute( 'class', 'food');
         bttn.setAttribute('data-state', objs[i].yes)
+        bttn.setAttribute('id', objs[i].id );
+        var x = 'toggleColor(' + objs[i].id + ')';
+        bttn.setAttribute('onClick', x );
         
         currentObj = objs[i];
         
@@ -97,27 +108,32 @@ function popButtons(buttons)
         {
             bttn.style.background ='#FF3300';
         }
-        
+         
         table.appendChild(row);
         row.appendChild(cell);
         cell.appendChild(bttn);   
     }
 }
 
-function toggleColor(name)
+function toggleColor(id)
 {
-    var colour = document.getElementById(name);
+    var currentBttn = document.getElementById(id);
+    var state;
     
-    if(colour.style.background = "rgb(250, 51, 0)")
+    if(currentBttn.style.background == 'rgb(148, 255, 112)')
     {
-        var c = '#'+ name;
-        $(c).css( 'background', '#94FF70');
+        currentBttn.style.background = '#FF3300';
+        state = false;
+        
     }
-    else
+    else if(currentBttn.style.background == 'rgb(255, 51, 0)')
     {
-        var c = '#'+ name;
-        $(c).css( 'background', '#FF3300');
+       currentBttn.style.background = '#94FF70';
+        state = true;
     }
+    
+    typeOfFood(id, state);  
+    checkForFood();
 }
 
 //Pulls the stats in
@@ -170,6 +186,26 @@ function iSawFood(whatYouSaw)
            error: function(error)
            {
            console.log(error);
+           }
+           });
+}
+
+function typeOfFood(id, state)
+{
+    
+    var ajaxData = 'foodID=' + id + '&state=' + state;
+    
+    $.ajax({
+           url: 'http://falling-earth-1135.herokuapp.com/foods/changeAvailability.json?'+ ajaxData,
+           type: 'GET',
+           async: false,
+           success: function(results)
+           {
+            console.log('State changed!');
+           },
+           error: function(error)
+           {
+            console.log(error);
            }
            });
 }

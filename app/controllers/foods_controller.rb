@@ -104,9 +104,10 @@ class FoodsController < ApplicationController
  end
  
  
- ####FOOD TYPES METHODS####
+ ####PULLS AND UPDATES FOOD AVAILABILITY####
  def pullFoodTypes
- 	@foodTypes = FoodType.all
+ 	@foodTypes = FoodType.alphabetical
+ 	
  	respond_to do |format|
  		format.json { render json: @foodTypes, :callback=>params[:callback] } 
  	end

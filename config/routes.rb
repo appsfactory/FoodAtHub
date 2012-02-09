@@ -7,6 +7,7 @@ FoodAtHub::Application.routes.draw do
   resources :foods
    match 'foods/foodYes(/:id)' => 'foods#foodYes'
    match 'foods/foodNo(/:id)' => 'foods#foodNo'
+  resources :food_types
    
   # The priority is based upon order of creation:
   # first created -> highest priority.

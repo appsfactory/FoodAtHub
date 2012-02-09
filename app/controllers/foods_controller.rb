@@ -128,8 +128,13 @@ class FoodsController < ApplicationController
  			FoodType.updateModel(kind,state)
  			
  			@foodType = FoodType.find(kind)
- 			prefix = state === "true"? "": "no more "
- 			foodTweet("There is " + prefix + @foodType.content.downcase + " at the Hub")
+ 			#prefix = state === "true"? "": "no more "
+ 			
+ 			if state === "true"
+ 				foodTweet("Someone saw " + @foodType.content.downcase + " at the Hub")
+ 			else
+ 				foodTweet("Someone finished the " + @foodType.content.downcase + " at the Hub")
+ 			end
 
  			logger.debug "FoodType status:"+FoodType.status.to_s
  			new = FoodType.status 			
@@ -144,7 +149,7 @@ class FoodsController < ApplicationController
  	Food.create(:yes=>false)
  	
  	logger.debug "Start tweet : clearFoodAvailability"
- 	foodTweet("There is no more food")
+ 	foodTweet("Someone ate all the food")
  	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 

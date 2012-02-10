@@ -167,11 +167,20 @@ class FoodsController < ApplicationController
  	logger.debug "METHOD: foodTweet"
  	
  	#FoodAtTheHubDEV#
+=begin
  	Twitter.configure do |config|
       config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
       config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
       config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
       config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
+    end
+=end
+
+ 	Twitter.configure do |config|
+      config.consumer_key = 'tSmelriB9VXz0UvMhUAa0g'
+      config.consumer_secret =  'QcEggfsxTd6klsc6iBHAlZGNfqz4vwIPXgqMjEnGE0'
+      config.oauth_token = '487620227-CMUygK7m4JZbmgc1oafOimZKHeFm70C1IQIR3PHF'
+      config.oauth_token_secret = 'zhlPBaisIX0EE1ejxewU1OQ1bGhy2rCuVoUCsxZhUc'
     end
     
     @twitter = Twitter::Client.new

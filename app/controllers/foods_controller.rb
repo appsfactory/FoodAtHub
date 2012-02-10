@@ -126,8 +126,9 @@ class FoodsController < ApplicationController
  			FoodType.updateModel(kind,state)
  			
  			@foodType = FoodType.find(kind)
- 			t = Time.now
- 			time_string = t.strftime("as of %d/%m/%Y at %I:%M%p")
+ 			t = Time.now.in_time_zone("Eastern Time (US & Canada)")
+ 			time_string = "as of " + t.day.to_s + "/" + t.month.to_s + "/" + t.year.to_s + " at " + t.hour.to_s + ":" + t.min.to_s
+ 			logger.debug "TIMESTAMP: " + time_string
  			if state === "true"
  				foodTweet("Someone saw " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
  			else

@@ -4,7 +4,6 @@ class FoodType < ActiveRecord::Base
 	
 	def self.checkSameState (givenFood, givenState)
 		kind = self.find(givenFood)
-		#state = givenState === "true"? true : false
 		state = (givenState === "true")
 		kind.yes === state
 	end

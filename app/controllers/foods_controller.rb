@@ -85,7 +85,6 @@ class FoodsController < ApplicationController
    @food = Food.new
    @food.yes = true
    saved = @food.save
-   #input logic to deal with changing availability on FoodType
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -96,7 +95,6 @@ class FoodsController < ApplicationController
    @food = Food.new
    @food.yes = false
    saved = @food.save
-	#input logic to set all in FoodType to :yes=>false
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -149,7 +147,7 @@ class FoodsController < ApplicationController
  	Food.create(:yes=>false)
  	
  	logger.debug "Start tweet : clearFoodAvailability"
- 	foodTweet("Someone ate all the food")
+ 	foodTweet("Someone ate all the food!")
  	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 

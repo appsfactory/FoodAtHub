@@ -1,9 +1,8 @@
 
 
 <%= @content["status"] %>
-<p>
-  <%= @content["time"] %>
-</p>
+<p><%= @content["time"] %></p>
+<p>Food Type Status: <%= @content["typeStatus"] %></p>
 
 <%= link_to "My Food", foods_path %>
 <p> <%= link_to "Common Foods", food_types_path %></p>

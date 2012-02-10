@@ -8,7 +8,7 @@ class Food < ActiveRecord::Base
 	def self.checkTimeExpiry?
 		@food = Food.lastYes
 		
-		if (@food.updated_at >= 20.minutes.ago)
+		if (@food.updated_at >= 30.minutes.ago)
 			@food.yes = true
 		else
 			@food.yes = false

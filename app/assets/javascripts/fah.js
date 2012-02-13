@@ -30,7 +30,7 @@ function clearAll()
     }
     
     $.ajax({
-           url: 'http://falling-earth-1135.herokuapp.com/foods/clearFoodAvailability.json?callback=',
+           url: 'http://foodatthehub.com/foods/clearFoodAvailability.json?callback=',
            type: 'GET',
            async: false,
            success: function(results)

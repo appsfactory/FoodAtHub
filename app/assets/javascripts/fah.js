@@ -1,4 +1,5 @@
-var foods = new Array();
+var foods = new Array(),
+    urlBase = 'http://foodatthehub.com';
 
 $(document).ready( function() {
 
@@ -30,7 +31,7 @@ function clearAll()
     }
     
     $.ajax({
-           url: 'http://foodatthehub.com/foods/clearFoodAvailability.json?callback=',
+           url: urlBase + '/foods/clearFoodAvailability.json?callback=',
            type: 'GET',
            async: false,
            success: function(results)
@@ -62,7 +63,7 @@ function bindBttns(array)
 function getFood()
 {
     $.ajax({
-           url: 'http://falling-earth-1135.herokuapp.com/foods/pullFoodTypes.json',
+           url: urlBase + 'foods/pullFoodTypes.json',
            dataType: 'jsonp',
            callbackParameter: 'jsoncallback',
            timeout: 5000,
@@ -152,7 +153,7 @@ function toggleColor(id)
 //Pulls the stats in
 function checkForFood() {
 	$.ajax({
-           url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
+           url: urlBase + '/home/index.json',
            dataType: 'jsonp',
            callbackParameter: 'jsoncallback',
            timeout: 3000,
@@ -189,7 +190,7 @@ function update(object)
 function iSawFood(whatYouSaw)
 {
     $.ajax({
-           url: 'http://falling-earth-1135.herokuapp.com/foods/food' + whatYouSaw + '/hack.json',
+           url: urlBase + '/foods/food' + whatYouSaw + '/hack.json',
            type: 'POST',
            async: false,
            success: function(results)
@@ -209,7 +210,7 @@ function typeOfFood(id, state)
     var ajaxData = 'foodID=' + id + '&state=' + state;
     
     $.ajax({
-           url: 'http://falling-earth-1135.herokuapp.com/foods/changeAvailability.json?'+ ajaxData,
+           url: urlBase + '/foods/changeAvailability.json?'+ ajaxData,
            type: 'GET',
            async: false,
            success: function(results)

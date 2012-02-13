@@ -29,7 +29,7 @@ function clearAll()
             e.style.background = '#FF3300';
         }
     }
-console.log( urlBase );    
+    
     $.ajax({
            url: urlBase + '/foods/clearFoodAvailability.json?callback=',
            type: 'GET',
@@ -131,21 +131,17 @@ function popButtons(buttons)
 
 function toggleColor(id)
 {
-    var currentBttn = document.getElementById(id);
-    var state;
-    
-    if(currentBttn.style.background == 'rgb(148, 255, 112)')
-    {
-        currentBttn.style.background = '#FF3300';
+    var currentStyle = document.getElementById(id).style.backgroundColor,
         state = false;
-        
-    }
-    else if(currentBttn.style.background == 'rgb(255, 51, 0)')
-    {
-       currentBttn.style.background = '#94FF70';
-        state = true;
-    }
     
+    if( 'rgb(148, 255, 112)' === currentStyle ) {
+      currentStyle = '#f30';
+      state = false;
+    } else if( 'rgb(255, 51, 0)' === currentStyle ) {
+      currentStyle = '#94ff70';
+      state = true;
+    }
+
     typeOfFood(id, state);  
     checkForFood();
 }
@@ -153,26 +149,30 @@ function toggleColor(id)
 //Pulls the stats in
 function checkForFood() {
 	$.ajax({
-           url: urlBase + '/home/index.json',
-           dataType: 'jsonp',
-           callbackParameter: 'jsoncallback',
-           timeout: 3000,
-           success: function(results){
-            update(results);
-           },
-           error: function(error){
-           console.log(error);
-           }
-           })
+    url: urlBase + '/home/index.json',
+    dataType: 'jsonp',
+    callbackParameter: 'jsoncallback',
+    timeout: 3000,
+    success: function(results){
+      update(results);
+    },
+    error: function(error){
+      console.log(error);
+    }
+  })
 };
 
 function update(object)
 {
-    var s = document.getElementById('state');
-    var m = document.getElementById('message');
+    var s = document.getElementById('state'),
+        m = document.getElementById('message');
+
     s.innerHTML = object.status;
-    
-    
+   
+    console.log( s );
+    console.log( m );
+window.foo = s;
+window.bar = m;
     if(s.innerHTML.toString() == "YES")
     {
         s.style.color = 'green';
@@ -206,20 +206,17 @@ function iSawFood(whatYouSaw)
 
 function typeOfFood(id, state)
 {
-    
     var ajaxData = 'foodID=' + id + '&state=' + state;
     
     $.ajax({
-           url: urlBase + '/foods/changeAvailability.json?'+ ajaxData,
-           type: 'GET',
-           async: false,
-           success: function(results)
-           {
-            console.log('State changed!');
-           },
-           error: function(error)
-           {
-            console.log(error);
-           }
-           });
+      url: urlBase + '/foods/changeAvailability.json?'+ ajaxData,
+      type: 'GET',
+      async: false,
+      success: function(results) {
+        console.log('State changed!');
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
 }

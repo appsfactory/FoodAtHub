@@ -29,7 +29,7 @@ function clearAll()
             e.style.background = '#FF3300';
         }
     }
-    
+console.log( urlBase );    
     $.ajax({
            url: urlBase + '/foods/clearFoodAvailability.json?callback=',
            type: 'GET',
@@ -63,7 +63,7 @@ function bindBttns(array)
 function getFood()
 {
     $.ajax({
-           url: urlBase + 'foods/pullFoodTypes.json',
+           url: urlBase + '/foods/pullFoodTypes.json',
            dataType: 'jsonp',
            callbackParameter: 'jsoncallback',
            timeout: 5000,

@@ -1,5 +1,7 @@
 var foods = new Array(),
-    urlBase = 'http://foodatthehub.com';
+    urlBase = 'http://foodatthehub.com',
+    RGB_GREEN = 'rgb(148, 255, 112)',
+    RGB_RED = 'rgb(255, 51, 0)';
 
 $(document).ready( function() {
 
@@ -24,25 +26,25 @@ function clearAll()
     {
         var e = document.getElementById(count+1);
         
-        if(e.style.background == 'rgb(148, 255, 112)')
+        if( RGB_GREEN === e.style.background )
         {
-            e.style.background = '#FF3300';
+            e.style.background = RGB_RED;
         }
     }
     
     $.ajax({
-           url: urlBase + '/foods/clearFoodAvailability.json?callback=',
-           type: 'GET',
-           async: false,
-           success: function(results)
-           {
+        url: urlBase + '/foods/clearFoodAvailability.json?callback=',
+        type: 'GET',
+        async: false,
+        success: function(results)
+        {
            console.log('State changed!');
-           },
-           error: function(error)
-           {
+        },
+        error: function(error)
+        {
            console.log(error);
-           }
-           });
+        }
+    });
     
     checkForFood();
 }
@@ -116,11 +118,11 @@ function popButtons(buttons)
         
         if(currentObj.yes === true)
         {
-            bttn.style.background = "#94FF70";
+            bttn.style.background = RGB_GREEN;
         }
         else
         {
-            bttn.style.background ='#FF3300';
+            bttn.style.background = RGB_RED;
         }
          
         table.appendChild(row);
@@ -131,14 +133,17 @@ function popButtons(buttons)
 
 function toggleColor(id)
 {
-    var currentStyle = document.getElementById(id).style.backgroundColor,
+    // Interestingly, if you set the variable all the way to backgroundColor,
+    // assignement doesn't work. By setting it just to style and specifying
+    // the property directly, it does. Weird.
+    var currentStyle = document.getElementById(id).style,
         state = false;
     
-    if( 'rgb(148, 255, 112)' === currentStyle ) {
-      currentStyle = '#f30';
+    if( RGB_GREEN === currentStyle.backgroundColor ) {
+      currentStyle.backgroundColor = RGB_RED;
       state = false;
-    } else if( 'rgb(255, 51, 0)' === currentStyle ) {
-      currentStyle = '#94ff70';
+    } else {
+      currentStyle.backgroundColor = RGB_GREEN;
       state = true;
     }
 
@@ -168,23 +173,19 @@ function update(object)
         m = document.getElementById('message');
 
     s.innerHTML = object.status;
-   
-    console.log( s );
-    console.log( m );
-window.foo = s;
-window.bar = m;
+
     if(s.innerHTML.toString() == "YES")
     {
-        s.style.color = 'green';
+        s.style.color = RGB_GREEN;
         console.log('Yes');
     }
     else
     {
-        s.style.color = 'red';
+        s.style.color = RGB_RED;
         console.log('No');
     }
-    m.innerHTML = object.time;
 
+    m.innerHTML = object.time;
 }
 
 function iSawFood(whatYouSaw)

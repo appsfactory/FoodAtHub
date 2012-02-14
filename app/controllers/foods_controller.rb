@@ -131,9 +131,9 @@ class FoodsController < ApplicationController
  			logger.debug "TIMESTAMP: " + time_string
  			
  			if state === "true"
- 				foodTweet("Someone saw " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
+ 				#foodTweet("Someone saw " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
  			else
- 				foodTweet("Someone finished the " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
+ 				#foodTweet("Someone finished the " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
  			end
 
  			logger.debug "FoodType status:"+FoodType.status.to_s
@@ -153,7 +153,7 @@ class FoodsController < ApplicationController
  	t = Time.now.in_time_zone("Eastern Time (US & Canada)")
  	time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
  	logger.debug "TIMESTAMP: " + time_string
- 	foodTweet("Someone ate all the food! (" + time_string + ")")
+ 	#foodTweet("Someone ate all the food! (" + time_string + ")")
  	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 

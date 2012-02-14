@@ -16,7 +16,7 @@ class HomeController < ApplicationController
         @content = 
         {
         	"status" => "NO",
-        	"time" => "Food has not been seen for " + time_ago_in_words(@food.updated_at),
+        	"time" => "Food has not been seen as of " + time_ago_in_words(@food.updated_at) + " ago",
         	"typeStatus" => FoodType.status
         }
     end

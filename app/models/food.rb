@@ -1,8 +1,8 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-	currentTweet = ""
-	oldTweet = ""
+    $currentTweet = ""
+	$oldTweet = ""
 	
 	def self.lastYes
 		self.where(:yes => true).last
@@ -28,7 +28,7 @@ class Food < ActiveRecord::Base
  	end
  
  	def self.foodTweet
- 	if currentTweet != oldTweet
+ 	if $currentTweet != $oldTweet
 	 	require "twitter"
 	 	logger.debug "METHOD: foodTweet"
 	 	
@@ -54,9 +54,9 @@ class Food < ActiveRecord::Base
 =end
 		
 		@twitter = Twitter::Client.new
-		@twitter.update(currentTweet + "(" + time_string + ")")
+		@twitter.update($currentTweet + "(" + time_string + ")")
 
-		oldTweet = currentTweet
+		$oldTweet = $currentTweet
 	end
  end
 	

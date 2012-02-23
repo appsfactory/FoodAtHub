@@ -2,8 +2,8 @@ class FoodsController < ApplicationController
   # GET /foods
   # GET /foods.json
 
-  oldTweet = ""
-  currentTweet = ""
+  #oldTweet = ""
+  #currentTweet = ""
   
   def index
     @foods = Food.all
@@ -135,9 +135,9 @@ class FoodsController < ApplicationController
  			logger.debug "TIMESTAMP: " + time_string
  			
  			if state === "true"
- 				setTweet("Someone saw " + @foodType.content.downcase + " at the Hub")
+ 				#setTweet("Someone saw " + @foodType.content.downcase + " at the Hub")
  			else
- 				setTweet("Someone finished the " + @foodType.content.downcase + " at the Hub")
+ 				#setTweet("Someone finished the " + @foodType.content.downcase + " at the Hub")
  			end
 
  			logger.debug "FoodType status:"+FoodType.status.to_s
@@ -157,7 +157,7 @@ class FoodsController < ApplicationController
  	t = Time.now.in_time_zone("Eastern Time (US & Canada)")
  	time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
  	logger.debug "TIMESTAMP: " + time_string
- 	setTweet("Someone ate all the food!")
+ 	#setTweet("Someone ate all the food!")
  	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 
@@ -172,7 +172,7 @@ class FoodsController < ApplicationController
 	currentTweet = tweet;
  }
  
- def foodTweet
+ def foodTweet (tweet)
  	if (currentTweet != oldTweet)
  	{
 	 	require "twitter"

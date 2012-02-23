@@ -1,8 +1,8 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-	$currentTweet
-	$oldTweet
+	currentTweet = ""
+	oldTweet = ""
 	
 	def self.lastYes
 		self.where(:yes => true).last

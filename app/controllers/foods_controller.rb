@@ -172,7 +172,7 @@ class FoodsController < ApplicationController
 	currentTweet = tweet
  }
  
- def foodTweet (tweet)
+ def foodTweet
  	if (currentTweet != oldTweet)
  	{
 	 	require "twitter"

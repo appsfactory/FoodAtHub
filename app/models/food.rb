@@ -1,7 +1,7 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-    $currentTweet = ""
+    $currentTweet = "sdfghsefg"
 	$oldTweet = ""
 	
 	def self.lastYes

@@ -173,8 +173,7 @@ class FoodsController < ApplicationController
  }
  
  def foodTweet
- 	if (currentTweet != oldTweet)
- 	{
+ 	if currentTweet != oldTweet
 	 	require "twitter"
 	 	logger.debug "METHOD: foodTweet"
 	 	
@@ -202,7 +201,7 @@ class FoodsController < ApplicationController
 		@twitter.update(currentTweet + "(" + time_string + ")")
 
 		oldTweet = currentTweet
-	}
+	end
  end
  	
 end

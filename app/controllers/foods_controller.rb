@@ -1,6 +1,10 @@
 class FoodsController < ApplicationController
   # GET /foods
   # GET /foods.json
+
+  oldTweet = ""
+  currentTweet = ""
+  
   def index
     @foods = Food.all
 
@@ -131,9 +135,9 @@ class FoodsController < ApplicationController
  			logger.debug "TIMESTAMP: " + time_string
  			
  			if state === "true"
- 				#foodTweet("Someone saw " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
+ 				setTweet("Someone saw " + @foodType.content.downcase + " at the Hub")
  			else
- 				#foodTweet("Someone finished the " + @foodType.content.downcase + " at the Hub (" + time_string + ")")
+ 				setTweet("Someone finished the " + @foodType.content.downcase + " at the Hub")
  			end
 
  			logger.debug "FoodType status:"+FoodType.status.to_s
@@ -153,7 +157,7 @@ class FoodsController < ApplicationController
  	t = Time.now.in_time_zone("Eastern Time (US & Canada)")
  	time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
  	logger.debug "TIMESTAMP: " + time_string
- 	#foodTweet("Someone ate all the food! (" + time_string + ")")
+ 	setTweet("Someone ate all the food!")
  	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 
@@ -162,29 +166,43 @@ class FoodsController < ApplicationController
  
  
  #### TWITTER ####
- def foodTweet (tweet)
- 	require "twitter"
- 	logger.debug "METHOD: foodTweet"
- 	
- 	#FoodAtTheHubDEV#
-=begin
- 	Twitter.configure do |config|
-      config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
-      config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
-      config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
-      config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
-    end
-=end
 
- 	Twitter.configure do |config|
-      config.consumer_key = 'tSmelriB9VXz0UvMhUAa0g'
-      config.consumer_secret =  'QcEggfsxTd6klsc6iBHAlZGNfqz4vwIPXgqMjEnGE0'
-      config.oauth_token = '487620227-CMUygK7m4JZbmgc1oafOimZKHeFm70C1IQIR3PHF'
-      config.oauth_token_secret = 'zhlPBaisIX0EE1ejxewU1OQ1bGhy2rCuVoUCsxZhUc'
-    end
-    
-    @twitter = Twitter::Client.new
-	@twitter.update(tweet)
+ def setTweet (tweet)
+ {
+	currentTweet = tweet;
+ }
+ 
+ def foodTweet
+ 	if (currentTweet != oldTweet)
+ 	{
+	 	require "twitter"
+	 	logger.debug "METHOD: foodTweet"
+	 	
+	 	#FoodAtTheHubDEV#
+	 	Twitter.configure do |config|
+		  config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
+		  config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
+		  config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
+		  config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
+		end
+		t = Time.now.in_time_zone("Eastern Time (US & Canada)")
+ 			time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
+ 			logger.debug "TIMESTAMP: " + time_string
+
+=begin
+	 	Twitter.configure do |config|
+		  config.consumer_key = 'tSmelriB9VXz0UvMhUAa0g'
+		  config.consumer_secret =  'QcEggfsxTd6klsc6iBHAlZGNfqz4vwIPXgqMjEnGE0'
+		  config.oauth_token = '487620227-CMUygK7m4JZbmgc1oafOimZKHeFm70C1IQIR3PHF'
+		  config.oauth_token_secret = 'zhlPBaisIX0EE1ejxewU1OQ1bGhy2rCuVoUCsxZhUc'
+		end
+=end
+		
+		@twitter = Twitter::Client.new
+		@twitter.update(currentTweet + "(" + time_string + ")")
+
+		oldTweet = currentTweet
+	}
  end
  	
 end

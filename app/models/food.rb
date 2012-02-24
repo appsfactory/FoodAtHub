@@ -1,6 +1,8 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
+	$cache = ActiveSupport::Cache::MemoryStore.new
+	
 	def self.tweets
 		["NA", "NA"]
 	end
@@ -26,18 +28,18 @@ class Food < ActiveRecord::Base
  
  	def self.foodTweet
 
-		logger.debug "Current: " + Rails.cache.fetch("currentTweet") {"NIL"}
+		logger.debug "Current: " + $cache.fetch("currentTweet") {"NIL"}
 		
 	 	if Food.checkMostRecent?
-			Rails.cache.write("currentTweet", "There is now food at the Hub. ")
+			$cache.write("currentTweet", "There is now food at the Hub. ")
 		else
-			Rails.cache.write("currentTweet", "There is no longer food at the Hub")
+			$cache.write("currentTweet", "There is no longer food at the Hub")
 		end
 
-		logger.debug "Current: " + Rails.cache.read("currentTweet")
-	 	logger.debug "Old: " + Rails.cache.fetch("oldTweet") {"NIL"}
+		logger.debug "Current: " + $cache.read("currentTweet")
+	 	logger.debug "Old: " + $cache.fetch("oldTweet") {"NIL"}
 	 	
-	 	if Rails.cache.read("currentTweet") != Rails.cache.read("oldTweet")
+	 	if $cache.read("currentTweet") != $cache.read("oldTweet")
 		 	require "twitter"
 		 	
 		 	#FoodAtTheHubDEV#
@@ -62,9 +64,9 @@ class Food < ActiveRecord::Base
 =end
 		
 			@twitter = Twitter::Client.new
-			@twitter.update(Rails.cache.read("currentTweet") + "(" + time_string + ")")
-			Rails.cache.write("oldTweet", Rails.cache.read("currentTweet"))
-			logger.debug "##################: " + Rails.cache.read("oldTweet")
+			@twitter.update($cache.read("currentTweet") + "(" + time_string + ")")
+			$cache.write("oldTweet", $cache.read("currentTweet"))
+			logger.debug "##################: " + $cache.read("oldTweet")
 		
 		end
 	end

@@ -47,6 +47,8 @@ module FoodAtHub
 
     config.cache_store = :memory_store
 
+    config.action_controller.perform_caching = true
+
     MY_VARS = {}
   end
 end

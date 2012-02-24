@@ -165,7 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
-	MY_VARS[:currentTweet] = tweet
+	Rails.cache.write("currentTweet", tweet)
  end
  	
 end

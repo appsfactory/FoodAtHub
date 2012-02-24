@@ -21,7 +21,7 @@ class Food < ActiveRecord::Base
 	end
  
  	def self.foodTweet
- 	if MY_VARS[:currentTweet] != MY_VARS[:oldTweet]
+ 	if Rails.cache.read("currentTweet") != Rails.cache.read("oldTweet")
 	 	require "twitter"
 	 	
 	 	#FoodAtTheHubDEV#
@@ -46,9 +46,9 @@ class Food < ActiveRecord::Base
 =end
 		
 		@twitter = Twitter::Client.new
-		@twitter.update(MY_VARS[:currentTweet] + "(" + time_string + ")")
+		@twitter.update(Rails.cache.read("currentTweet") + "(" + time_string + ")")
 
-		MY_VARS[:oldTweet] = MY_VARS[:currentTweet]
+		Rails.cache.read("oldTweet") = Rails.cache.read("currentTweet")
 	end
  end
 	

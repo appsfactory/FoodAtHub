@@ -26,6 +26,8 @@ class Food < ActiveRecord::Base
  
  	def self.foodTweet
 
+		logger.debug "Current: " + Rails.cache.fetch("currentTweet") {"NIL"}
+		
 	 	if Food.checkMostRecent?
 			Rails.cache.write("currentTweet", "There is now food at the Hub. ")
 		else

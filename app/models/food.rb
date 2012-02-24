@@ -33,7 +33,7 @@ class Food < ActiveRecord::Base
 	 	if Food.checkMostRecent?
 			$cache.write("currentTweet", "There is now food at the Hub. ")
 		else
-			$cache.write("currentTweet", "There is no longer food at the Hub")
+			$cache.write("currentTweet", "There is no longer food at the Hub. ")
 		end
 
 		logger.debug "Current: " + $cache.read("currentTweet")

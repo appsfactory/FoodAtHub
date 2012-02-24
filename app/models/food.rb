@@ -25,6 +25,7 @@ class Food < ActiveRecord::Base
 
 	def setMyTweet (tweet)
 		$currentTweet = tweet
+		logger.debug "Set"
  	end
  
  	def self.foodTweet

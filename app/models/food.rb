@@ -25,26 +25,28 @@ class Food < ActiveRecord::Base
 	end
  
  	def self.foodTweet
- 	if Rails.cache.read("currentTweet") != nil
-		logger.debug "###############################: " + Rails.cache.read("currentTweet")
-	else
-		logger.debug "*******************************: NIL"
-	end
- 	#logger.debug "Old: " + Rails.cache.read("oldTweet")
- 	if Rails.cache.read("currentTweet") != Rails.cache.read("oldTweet")
-	 	require "twitter"
-	 	
-	 	#FoodAtTheHubDEV#
-	 	Twitter.configure do |config|
-		  config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
-		  config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
-		  config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
-		  config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
-		end
 
-		t = Time.now.in_time_zone("Eastern Time (US & Canada)")
- 			time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
- 			logger.debug "TIMESTAMP: " + time_string
+	 	if Food.checkMostRecent?
+			Rails.cache.write("currentTweet", "There is now food at the Hub. ")
+		else
+			Rails.cache.write("currentTweet", "There is no longer food at the Hub")
+		end
+	
+	 	#logger.debug "Old: " + Rails.cache.read("oldTweet")
+	 	if Rails.cache.read("currentTweet") != Rails.cache.read("oldTweet")
+		 	require "twitter"
+		 	
+		 	#FoodAtTheHubDEV#
+		 	Twitter.configure do |config|
+			  config.consumer_key = 'zYT20h9PeCyY7Pq67iiIg'
+			  config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
+			  config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
+			  config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
+			end
+
+			t = Time.now.in_time_zone("Eastern Time (US & Canada)")
+	 			time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
+	 			logger.debug "TIMESTAMP: " + time_string
 
 =begin
 	 	Twitter.configure do |config|
@@ -55,12 +57,12 @@ class Food < ActiveRecord::Base
 		end
 =end
 		
-		@twitter = Twitter::Client.new
-		@twitter.update(Rails.cache.read("currentTweet") + "(" + time_string + ")")
+			@twitter = Twitter::Client.new
+			@twitter.update(Rails.cache.read("currentTweet") + "(" + time_string + ")")
 
-		Rails.cache.write("oldTweet", Rails.cache.read("currentTweet"))
+			Rails.cache.write("oldTweet", Rails.cache.read("currentTweet"))
+		end
 	end
- end
 	
 end
  

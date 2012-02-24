@@ -48,7 +48,7 @@ class Food < ActiveRecord::Base
 		@twitter = Twitter::Client.new
 		@twitter.update(Rails.cache.read("currentTweet") + "(" + time_string + ")")
 
-		Rails.cache.read("oldTweet") = Rails.cache.read("currentTweet")
+		Rails.cache.write("oldTweet", Rails.cache.read("currentTweet"))
 	end
  end
 	

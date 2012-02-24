@@ -23,7 +23,7 @@ class Food < ActiveRecord::Base
 		@food.yes ? true : false
 	end
 
-	def setMyTweet (tweet)
+	def self.setMyTweet (tweet)
 		$currentTweet = tweet
 		logger.debug "Set"
  	end

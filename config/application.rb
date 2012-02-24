@@ -46,7 +46,5 @@ module FoodAtHub
     config.assets.version = '1.0'
 
     config.action_controller.perform_caching = true
-
-    MY_VARS = {}
   end
 end

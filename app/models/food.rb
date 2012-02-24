@@ -1,9 +1,6 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-    $currentTweet = "sdfghsefg"
-	$oldTweet = ""
-	
 	def self.lastYes
 		self.where(:yes => true).last
 	end
@@ -22,17 +19,10 @@ class Food < ActiveRecord::Base
 		@food = Food.last
 		@food.yes ? true : false
 	end
-
-	def self.setMyTweet (tweet)
-		$currentTweet = tweet
-		logger.debug "HEREHEREHEREHEREHEREHERE: " + $currentTweet
- 	end
  
  	def self.foodTweet
- 	if $currentTweet != $oldTweet
+ 	if MY_VARS[:currentTweet] != MY_VARS[:oldTweet]
 	 	require "twitter"
-	 	logger.debug "METHOD: foodTweet"
-	 	logger.debug $currentTweet
 	 	
 	 	#FoodAtTheHubDEV#
 	 	Twitter.configure do |config|
@@ -56,9 +46,9 @@ class Food < ActiveRecord::Base
 =end
 		
 		@twitter = Twitter::Client.new
-		@twitter.update($currentTweet + "(" + time_string + ")")
+		@twitter.update(MY_VARS[:currentTweet] + "(" + time_string + ")")
 
-		$oldTweet = $currentTweet
+		MY_VARS[:oldTweet] = MY_VARS[:currentTweet]
 	end
  end
 	

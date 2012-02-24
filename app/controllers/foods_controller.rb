@@ -2,9 +2,6 @@ class FoodsController < ApplicationController
   # GET /foods
   # GET /foods.json
 
-  $oldTweet
-  $currentTweet
-  
   def index
     @foods = Food.all
 
@@ -168,7 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
-	$currentTweet = tweet
+	Food.$currentTweet = tweet
  end
  
  def foodTweet

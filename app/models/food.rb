@@ -33,7 +33,7 @@ class Food < ActiveRecord::Base
 		end
 
 		logger.debug "Current: " + Rails.cache.read("currentTweet")
-	 	logger.debug "Old: " + Rails.cache.read("oldTweet")
+	 	logger.debug "Old: " + Rails.cache.fetch("oldTweet") {"NIL"}
 	 	
 	 	if Rails.cache.read("currentTweet") != Rails.cache.read("oldTweet")
 		 	require "twitter"

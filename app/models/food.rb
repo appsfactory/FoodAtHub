@@ -32,6 +32,7 @@ class Food < ActiveRecord::Base
  	if $currentTweet != $oldTweet
 	 	require "twitter"
 	 	logger.debug "METHOD: foodTweet"
+	 	logger.debug $currentTweet
 	 	
 	 	#FoodAtTheHubDEV#
 	 	Twitter.configure do |config|

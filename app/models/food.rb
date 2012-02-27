@@ -29,7 +29,7 @@ class Food < ActiveRecord::Base
 		@food.yes ? true : false
 	end
 
-	def setTweet (tweet)
+	def self.setTweet (tweet)
 		File.open($current, 'w') {|f| f.write(tweet) }
  	end
  

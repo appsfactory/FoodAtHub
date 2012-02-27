@@ -165,7 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
-	Food.setTweet(tweet)
+	@food.setMyTweet(tweet)
  end
  	
 end

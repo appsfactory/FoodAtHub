@@ -70,7 +70,7 @@ class Food < ActiveRecord::Base
 			@twitter = Twitter::Client.new
 			@twitter.update($currentTweet + "(" + time_string + ")")
 
-			File.open($old, 'w') {|f| f.write($currentTweet)}
+			File.open($old, 'w+') {|f| f.write($currentTweet)}
 
 		end
 	end

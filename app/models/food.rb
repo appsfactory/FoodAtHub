@@ -36,6 +36,11 @@ class Food < ActiveRecord::Base
  	def self.foodTweet
 	 	File.open($current, 'a+') {|f| $currentTweet = f.gets }
 	 	File.open($old, 'a+') {|f| $oldTweet = f.gets }
+
+	 	logger.debug("#################################")
+	 	logger.debug("Current: " + $currentTweet)
+	 	logger.debug("Old: " + $oldTweet)
+	 	logger.debug("#################################")
 	 	
 	 	if $currentTweet != $oldTweet
 		 	require "twitter"

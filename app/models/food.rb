@@ -34,6 +34,7 @@ class Food < ActiveRecord::Base
  	end
  
  	def self.foodTweet
+ 		File.open($current, 'w+') {|f| f.write("TESTING") }
 	 	File.open($current, 'a+') {|f| $currentTweet = f.gets }
 	 	File.open($old, 'a+') {|f| $oldTweet = f.gets }
 

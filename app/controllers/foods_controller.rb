@@ -165,12 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
-	Rails.cache.write("currentTweet", tweet)
-	if Rails.cache.read("currentTweet") != nil
-		logger.debug "###############################: " + Rails.cache.read("currentTweet")
-	else
-		logger.debug "*******************************: " + tweets
-	end
+	Food.setTweet(tweet)
  end
  	
 end

@@ -6,6 +6,10 @@ class Food < ActiveRecord::Base
 	$currentTweet = ""
 	$oldTweet = ""
 	
+	def self.tweets
+		["NA", "NA"]
+	end
+
 	def self.lastYes
 		self.where(:yes => true).last
 	end
@@ -43,7 +47,7 @@ class Food < ActiveRecord::Base
 		  config.consumer_secret =  '4zcgT2uvxX2yBcWi1Aq6EuJ4aKlIgrNdayOlIjDvH8'
 		  config.oauth_token = '487604905-fLdkBI1NDA8ZK7ip1PL4mp5AT4EBgJrdxJsuhlQr'
 		  config.oauth_token_secret = 'ncgf5iSsvQ5quJvxfA1etMeTUd9eEXpcCArAoYecqdc'
-		end
+        end
 
 		t = Time.now.in_time_zone("Eastern Time (US & Canada)")
  			time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
@@ -62,8 +66,8 @@ class Food < ActiveRecord::Base
 		@twitter.update($currentTweet + "(" + time_string + ")")
 
 		File.open($old, 'w') {|f| f.write($currentTweet)}
+
 	end
- end
 	
 end
  

@@ -1,8 +1,8 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-    $current = "current.rb"
-	$old = "old.rb"
+    $current = "/tmp/current.rb"
+	$old = "/tmp/old.rb"
 	$currentTweet = ""
 	$oldTweet = ""
 	

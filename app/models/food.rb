@@ -1,7 +1,9 @@
 class Food < ActiveRecord::Base
 	scope :chronological, :order => "updated_at DESC"
 
-    $currentTweet = "sdfghsefg"
+    $current = "current.rb"
+	$old = "old.rb"
+	$currentTweet = ""
 	$oldTweet = ""
 	
 	def self.lastYes
@@ -24,10 +26,13 @@ class Food < ActiveRecord::Base
 	end
 
 	def setMyTweet (tweet)
-		$currentTweet = tweet
+		File.open($current, 'w') {|f| f.write(tweet) }
  	end
  
  	def self.foodTweet
+ 	File.open($current, 'r') {|f| $currentTweet = f.gets }
+ 	File.open($old, 'r') {|f| $oldTweet = f.gets }
+ 	
  	if $currentTweet != $oldTweet
 	 	require "twitter"
 	 	logger.debug "METHOD: foodTweet"
@@ -56,7 +61,7 @@ class Food < ActiveRecord::Base
 		@twitter = Twitter::Client.new
 		@twitter.update($currentTweet + "(" + time_string + ")")
 
-		$oldTweet = $currentTweet
+		File.open($old, 'w') {|f| f.write($currentTweet)}
 	end
  end
 	

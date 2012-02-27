@@ -165,6 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
+    logger.debug("######################### NOT SET #######################")
 	@food.setMyTweet(tweet)
 	logger.debug("######################### SET #######################")
  end

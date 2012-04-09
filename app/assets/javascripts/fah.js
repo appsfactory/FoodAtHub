@@ -22,10 +22,9 @@ function clearAll()
     for(count = 0; count < foods.length; count++)
     {
         var e = document.getElementById(count+1);
-        
-        if(e.style.background == 'rgb(148, 255, 112)')
+        if($(e).attr('class') == 'foodYes')
         {
-            e.style.background = '#FF3300';
+            $(e).attr('class','foodNo');
         }
     }
     
@@ -133,19 +132,21 @@ function toggleColor(id)
 {
     var currentBttn = document.getElementById(id);
     var state;
+    console.log($(currentBttn));
     
-    if(currentBttn.style.background == 'rgb(148, 255, 112)')
+    if($(currentBttn).attr('class') == 'foodNo')
     {
-        currentBttn.style.background = '#FF3300';
-        state = false;
+        $(currentBttn).attr('class','foodYes');
+        state = true;
         
     }
-    else if(currentBttn.style.background == 'rgb(255, 51, 0)')
+    else if($(currentBttn).attr('class') == 'foodYes')
     {
-       currentBttn.style.background = '#94FF70';
-        state = true;
+       $(currentBttn).attr('class','foodNo');
+        state = false;
     }
     
+    console.log( id + ": " + state);
     typeOfFood(id, state);  
     checkForFood();
 }

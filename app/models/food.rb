@@ -30,6 +30,7 @@ class Food < ActiveRecord::Base
 	def self.setMyTweet (newTweet)
 		@food = Food.new
 		@food.tweet = newTweet
+		@food.oldTweet = Food.last.oldTweet
 		@food.save
 		logger.debug('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
 		logger.debug(newTweet)

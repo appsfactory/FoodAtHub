@@ -42,6 +42,10 @@ class Food < ActiveRecord::Base
 			$oldTweet = "First Test"
 		end
 
+		if $currentTweet == nil
+			$currentTweet = $oldTweet
+		end
+
 	 	logger.debug("#################################")
 	 	logger.debug("Current: " + $currentTweet)
 	 	logger.debug("Old: " + $oldTweet)

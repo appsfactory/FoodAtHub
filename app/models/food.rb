@@ -35,12 +35,12 @@ class Food < ActiveRecord::Base
  
  	def self.foodTweet
  		$oldTweet = Food.last.tweet
- 		$currentTweet = Food.last.newtweet
+		$currentTweet = Food.last.newtweet
 
 	 	logger.debug("#################################")
-	 	#logger.debug("Current: " + $currentTweet)
-	 	#logger.debug("Old: " + $oldTweet)
-	 	#logger.debug("#################################")
+	 	logger.debug("Current: " + $currentTweet)
+	 	logger.debug("Old: " + $oldTweet)
+	 	logger.debug("#################################")
 	 	
 	 	if $currentTweet != $oldTweet
 		 	require "twitter"
@@ -68,7 +68,7 @@ class Food < ActiveRecord::Base
 =end
 		
 			@twitter = Twitter::Client.new
-			@twitter.update($currentTweet + " (" + time_string + ")")
+			@twitter.update($currentTweet + "(" + time_string + ")")
 
 			@food = Food.new
 			@food.tweet = $currentTweet

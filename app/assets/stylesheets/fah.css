@@ -1,6 +1,6 @@
 body
 {
-	background-image: url('../gradient_background.png');
+	background-image: url('gradient_background.png');
 	background-image: repeat;
 }
 
@@ -66,8 +66,9 @@ h1
 #legend
 {
     font: 1.5em Asap; color: black;
-    text-shadow: 1px 1px 1px darkgrey;
-	text-shadow: 0 0 5px #5E5E5E;
+    /*text-shadow: 1px 1px 1px darkgrey;
+	text-shadow: 0 0 5px #5E5E5E;*/
+	text-shadow: 0 0 1px #5E5E5E;
     text-align: center;
 }
 

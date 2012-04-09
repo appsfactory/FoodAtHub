@@ -175,12 +175,12 @@ function update(object)
     
     if(s.innerHTML.toString() == "YES")
     {
-        s.style.color = 'green';
+        s.style.color = '#84c54c';
         console.log('Yes');
     }
     else
     {
-        s.style.color = 'red';
+        s.style.color = '#e86642';
         console.log('No');
     }
     m.innerHTML = object.time;

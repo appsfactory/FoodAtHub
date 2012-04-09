@@ -29,6 +29,9 @@ class Food < ActiveRecord::Base
 
 	def self.setMyTweet (tweet)
 		$currentTweet = tweet;
+		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		logger.debug($currentTweet)
+		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
  	end
  
  	def self.foodTweet
@@ -65,7 +68,7 @@ class Food < ActiveRecord::Base
 =end
 		
 			@twitter = Twitter::Client.new
-			@twitter.update($currentTweet + "(" + time_string + ")")
+			@twitter.update($currentTweet + " (" + time_string + ")")
 
 			@food = Food.new
 			@food.tweet = $currentTweet

@@ -1,7 +1,4 @@
-var foods = new Array(),
-    urlBase = 'http://foodatthehub.com',
-    RGB_GREEN = 'rgb(148, 255, 112)',
-    RGB_RED = 'rgb(255, 51, 0)';
+var foods = new Array();
 
 $(document).ready( function() {
 
@@ -26,25 +23,25 @@ function clearAll()
     {
         var e = document.getElementById(count+1);
         
-        if( RGB_GREEN === e.style.background )
+        if(e.style.background == 'rgb(148, 255, 112)')
         {
-            e.style.background = RGB_RED;
+            e.style.background = '#FF3300';
         }
     }
     
     $.ajax({
-        url: urlBase + '/foods/clearFoodAvailability.json?callback=',
-        type: 'GET',
-        async: false,
-        success: function(results)
-        {
+           url: 'http://falling-earth-1135.herokuapp.com/foods/clearFoodAvailability.json?callback=',
+           type: 'GET',
+           async: false,
+           success: function(results)
+           {
            console.log('State changed!');
-        },
-        error: function(error)
-        {
+           },
+           error: function(error)
+           {
            console.log(error);
-        }
-    });
+           }
+           });
     
     checkForFood();
 }
@@ -65,7 +62,7 @@ function bindBttns(array)
 function getFood()
 {
     $.ajax({
-           url: urlBase + '/foods/pullFoodTypes.json',
+           url: 'http://falling-earth-1135.herokuapp.com/foods/pullFoodTypes.json',
            dataType: 'jsonp',
            callbackParameter: 'jsoncallback',
            timeout: 5000,
@@ -108,7 +105,7 @@ function popButtons(buttons)
         
         cell.setAttribute( 'align', 'center');
         bttn.innerHTML = objs[i].content;
-        bttn.setAttribute( 'class', 'food');
+        bttn.setAttribute( 'class', 'foodYes');
         bttn.setAttribute('data-state', objs[i].yes)
         bttn.setAttribute('id', objs[i].id );
         var x = 'toggleColor(' + objs[i].id + ')';
@@ -118,11 +115,12 @@ function popButtons(buttons)
         
         if(currentObj.yes === true)
         {
-            bttn.style.background = RGB_GREEN;
+
+            $(bttn).attr('class','foodYes');
         }
         else
         {
-            bttn.style.background = RGB_RED;
+            $(bttn).attr('class','foodNo');
         }
          
         table.appendChild(row);
@@ -133,20 +131,21 @@ function popButtons(buttons)
 
 function toggleColor(id)
 {
-    // Interestingly, if you set the variable all the way to backgroundColor,
-    // assignement doesn't work. By setting it just to style and specifying
-    // the property directly, it does. Weird.
-    var currentStyle = document.getElementById(id).style,
-        state = false;
+    var currentBttn = document.getElementById(id);
+    var state;
     
-    if( RGB_GREEN === currentStyle.backgroundColor ) {
-      currentStyle.backgroundColor = RGB_RED;
-      state = false;
-    } else {
-      currentStyle.backgroundColor = RGB_GREEN;
-      state = true;
+    if(currentBttn.style.background == 'rgb(148, 255, 112)')
+    {
+        currentBttn.style.background = '#FF3300';
+        state = false;
+        
     }
-
+    else if(currentBttn.style.background == 'rgb(255, 51, 0)')
+    {
+       currentBttn.style.background = '#94FF70';
+        state = true;
+    }
+    
     typeOfFood(id, state);  
     checkForFood();
 }
@@ -154,49 +153,44 @@ function toggleColor(id)
 //Pulls the stats in
 function checkForFood() {
 	$.ajax({
-    url: urlBase + '/home/index.json',
-    dataType: 'jsonp',
-    callbackParameter: 'jsoncallback',
-    timeout: 3000,
-    success: function(results){
-      update(results);
-    },
-    error: function(error){
-      console.log(error);
-    }
-  })
+           url: 'http://falling-earth-1135.herokuapp.com/home/index.json',
+           dataType: 'jsonp',
+           callbackParameter: 'jsoncallback',
+           timeout: 3000,
+           success: function(results){
+            update(results);
+           },
+           error: function(error){
+           console.log(error);
+           }
+           })
 };
 
 function update(object)
 {
-    var s = document.getElementById('state'),
-        m = document.getElementById('message');
-
+    var s = document.getElementById('state');
+    var m = document.getElementById('message');
     s.innerHTML = object.status;
     
-    var titleMessage;
-    if (object.status == "YES") { titleMessage = object.status + ", there is food"; }
-    else { titleMessage = object.status +  ", there is no food"; }
-	document.title = titleMessage + " - FoodAtTheHub";
-
+    
     if(s.innerHTML.toString() == "YES")
     {
-        s.style.color = RGB_GREEN;
+        s.style.color = 'green';
         console.log('Yes');
     }
     else
     {
-        s.style.color = RGB_RED;
+        s.style.color = 'red';
         console.log('No');
     }
-
     m.innerHTML = object.time;
+
 }
 
 function iSawFood(whatYouSaw)
 {
     $.ajax({
-           url: urlBase + '/foods/food' + whatYouSaw + '/hack.json',
+           url: 'http://falling-earth-1135.herokuapp.com/foods/food' + whatYouSaw + '/hack.json',
            type: 'POST',
            async: false,
            success: function(results)
@@ -212,17 +206,20 @@ function iSawFood(whatYouSaw)
 
 function typeOfFood(id, state)
 {
+    
     var ajaxData = 'foodID=' + id + '&state=' + state;
     
     $.ajax({
-      url: urlBase + '/foods/changeAvailability.json?'+ ajaxData,
-      type: 'GET',
-      async: false,
-      success: function(results) {
-        console.log('State changed!');
-      },
-      error: function(error) {
-        console.log(error);
-      }
-    });
+           url: 'http://falling-earth-1135.herokuapp.com/foods/changeAvailability.json?'+ ajaxData,
+           type: 'GET',
+           async: false,
+           success: function(results)
+           {
+            console.log('State changed!');
+           },
+           error: function(error)
+           {
+            console.log(error);
+           }
+           });
 }

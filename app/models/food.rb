@@ -27,20 +27,33 @@ class Food < ActiveRecord::Base
 		@food.yes ? true : false
 	end
 
-	def self.setMyTweet (tweet)
+	def self.setMyTweet (newTweet)
 		@food = Food.new
-		@food.newtweet = tweet
+		@food.tweet = newTweet
+		@food.oldTweet = Food.last.oldTweet
 		@food.save
+		logger.debug('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+		logger.debug(newTweet)
+		logger.debug('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
  	end
  
  	def self.foodTweet
- 		$oldTweet = Food.last.tweet
- 		$currentTweet = Food.last.newtweet
+ 		logger.debug("$$$")
+ 		$oldTweet = Food.last.oldTweet
+		$currentTweet = Food.last.tweet
+
+		if $oldTweet == nil
+			$oldTweet = "First Test"
+		end
+
+		if $currentTweet == nil
+			$currentTweet = $oldTweet
+		end
 
 	 	logger.debug("#################################")
-	 	#logger.debug("Current: " + $currentTweet)
-	 	#logger.debug("Old: " + $oldTweet)
-	 	#logger.debug("#################################")
+	 	logger.debug("Current: " + $currentTweet)
+	 	logger.debug("Old: " + $oldTweet)
+	 	logger.debug("#################################")
 	 	
 	 	if $currentTweet != $oldTweet
 		 	require "twitter"
@@ -68,10 +81,10 @@ class Food < ActiveRecord::Base
 =end
 		
 			@twitter = Twitter::Client.new
-			@twitter.update($currentTweet + " (" + time_string + ")")
+			@twitter.update($currentTweet + "(" + time_string + ")")
 
 			@food = Food.new
-			@food.tweet = $currentTweet
+			@food.oldTweet = $currentTweet
 			@food.save
 			
 		end

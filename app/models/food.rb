@@ -28,16 +28,19 @@ class Food < ActiveRecord::Base
 	end
 
 	def self.setMyTweet (tweet)
-		$currentTweet = tweet;
+		@food = Food.new
+		@food.newtweet = tweet
+		@food.save
  	end
  
  	def self.foodTweet
- 		$oldTweet = Food.last.tweet;
+ 		$oldTweet = Food.last.tweet
+		$currentTweet = Food.last.newtweet
 
 	 	logger.debug("#################################")
-	 	#logger.debug("Current: " + $currentTweet)
-	 	#logger.debug("Old: " + $oldTweet)
-	 	#logger.debug("#################################")
+	 	logger.debug("Current: " + $currentTweet)
+	 	logger.debug("Old: " + $oldTweet)
+	 	logger.debug("#################################")
 	 	
 	 	if $currentTweet != $oldTweet
 		 	require "twitter"

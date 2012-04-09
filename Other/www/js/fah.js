@@ -105,7 +105,7 @@ function popButtons(buttons)
         
         cell.setAttribute( 'align', 'center');
         bttn.innerHTML = objs[i].content;
-        bttn.setAttribute( 'class', 'food');
+        bttn.setAttribute( 'class', 'foodYes');
         bttn.setAttribute('data-state', objs[i].yes)
         bttn.setAttribute('id', objs[i].id );
         var x = 'toggleColor(' + objs[i].id + ')';
@@ -115,11 +115,12 @@ function popButtons(buttons)
         
         if(currentObj.yes === true)
         {
-            bttn.style.background = "#94FF70";
+
+            $(bttn).attr('class','foodYes');
         }
         else
         {
-            bttn.style.background ='#FF3300';
+            $(bttn).attr('class','foodNo');
         }
          
         table.appendChild(row);

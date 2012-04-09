@@ -1,6 +1,7 @@
 class FoodsController < ApplicationController
   # GET /foods
   # GET /foods.json
+
   def index
     @foods = Food.all
 
@@ -85,7 +86,6 @@ class FoodsController < ApplicationController
    @food = Food.new
    @food.yes = true
    saved = @food.save
-   #input logic to deal with changing availability on FoodType
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -96,7 +96,6 @@ class FoodsController < ApplicationController
    @food = Food.new
    @food.yes = false
    saved = @food.save
-	#input logic to set all in FoodType to :yes=>false
    respond_to do |format|
    	format.html { redirect_to root_url, notice: 'Button press was recognized.' }
    	format.json {render :json => { "result" => saved }, :callback => params[:callback] }
@@ -104,7 +103,7 @@ class FoodsController < ApplicationController
  end
  
  
- ####PULLS AND UPDATES FOOD AVAILABILITY####
+ #### PULLS AND UPDATES FOOD AVAILABILITY ####
  def pullFoodTypes
  	@foodTypes = FoodType.alphabetical
  	
@@ -126,9 +125,20 @@ class FoodsController < ApplicationController
  			format.json { render :json=> {:status=>"unnecessary save"}, :callback=>params[:callback] }
  		else	
  			FoodType.updateModel(kind,state)
+ 			
+ 			@foodType = FoodType.find(kind)
+ 			t = Time.now.in_time_zone("Eastern Time (US & Canada)")
+ 			time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
+ 			logger.debug "TIMESTAMP: " + time_string
+ 			
+ 			if state === "true"
+ 				setTweet("Someone saw " + @foodType.content.downcase + " at the Hub")
+ 			else
+ 				setTweet("Someone finished the " + @foodType.content.downcase + " at the Hub")
+ 			end
+
  			logger.debug "FoodType status:"+FoodType.status.to_s
- 		
- 			new = FoodType.status
+ 			new = FoodType.status 			
  			Food.create(:yes=>new)
  			format.json { render :json=> {:status=>"save successful"}, :callback=>params[:callback] }
  		end
@@ -139,9 +149,23 @@ class FoodsController < ApplicationController
  	FoodType.clearAvailability
  	Food.create(:yes=>false)
  	
+ 	logger.debug "Start tweet : clearFoodAvailability"
+ 	
+ 	t = Time.now.in_time_zone("Eastern Time (US & Canada)")
+ 	time_string = t.strftime("as of %m/%d/%Y at %I:%M%p") 
+ 	logger.debug "TIMESTAMP: " + time_string
+ 	setTweet("Someone ate all the food!")
+ 	
  	respond_to do |format|
  		format.json { render :json => {:status=>"cleared successfully!"}, :callback=>params[:callback] } 
  	end
+ end
+ 
+ 
+ #### TWITTER ####
+
+ def setTweet (tweet)
+ 	Food.setMyTweet(tweet)
  end
  	
 end

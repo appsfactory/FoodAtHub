@@ -31,3 +31,5 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
+# To Tweet
+gem 'twitter'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120207160337) do
+ActiveRecord::Schema.define(:version => 20120409180519) do
 
   create_table "food_types", :force => true do |t|
     t.string   "content"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20120207160337) do
   create_table "foods", :force => true do |t|
     t.boolean  "yes"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "tweet"
+    t.string   "oldTweet"
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

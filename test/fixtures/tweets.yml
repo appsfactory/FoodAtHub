@@ -1,9 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  yes: false
-  content: MyText
+  text: MyString
 
 two:
-  yes: false
-  content: MyText
+  text: MyString

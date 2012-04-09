@@ -165,9 +165,7 @@ class FoodsController < ApplicationController
  #### TWITTER ####
 
  def setTweet (tweet)
-    logger.debug("######################### NOT SET #######################")
-	File.open("/tmp/current.rb", "w+") {|f| f.write(tweet)}
-	logger.debug("######################### SET #######################")
+ 	Food.setMyTweet(tweet)
  end
  	
 end

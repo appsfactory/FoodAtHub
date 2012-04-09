@@ -28,14 +28,14 @@ class Food < ActiveRecord::Base
 	end
 
 	def self.setMyTweet (tweet)
-		$currentTweet = tweet;
-		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-		logger.debug($currentTweet)
-		logger.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		@food = Food.new
+		@food.newtweet = tweet
+		@food.save
  	end
  
  	def self.foodTweet
- 		$oldTweet = Food.last.tweet;
+ 		$oldTweet = Food.last.tweet
+ 		$currentTweet = Food.last.newtweet
 
 	 	logger.debug("#################################")
 	 	#logger.debug("Current: " + $currentTweet)

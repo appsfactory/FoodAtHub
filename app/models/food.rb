@@ -34,6 +34,7 @@ class Food < ActiveRecord::Base
  	end
  
  	def self.foodTweet
+ 		logger.debug("$$$")
  		$oldTweet = Food.last.oldTweet
 		$currentTweet = Food.last.tweet
 

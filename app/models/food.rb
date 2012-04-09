@@ -27,12 +27,12 @@ class Food < ActiveRecord::Base
 		@food.yes ? true : false
 	end
 
-	def self.setMyTweet (tweet)
-		@food = Food.last
-		@food.tweet = tweet
+	def self.setMyTweet (newTweet)
+		@food = Food.new
+		@food.tweet = newTweet
 		@food.save
 		logger.debug('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-		logger.debug(tweet)
+		logger.debug(newTweet)
 		logger.debug('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
  	end
  

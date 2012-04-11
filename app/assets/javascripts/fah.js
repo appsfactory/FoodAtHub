@@ -173,6 +173,11 @@ function update(object)
     var m = document.getElementById('message');
     s.innerHTML = object.status;
     
+    var titleMessage;
+	if (object.status == "YES") { titleMessage = object.status + ", there is food"; }
+	else { titleMessage = object.status +  ", there is no food"; }
+	document.title = titleMessage + " - FoodAtTheHub";
+    
     
     if(s.innerHTML.toString() == "YES")
     {
